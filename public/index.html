@@ -1,1 +1,116 @@
-Hello world
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>Fogen Burgar</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8"/>
+
+</head>
+<body>
+
+    <section>
+        <div class="image" >
+            <img src="https://static.dezeen.com/uploads/2020/01/yuzu-burger-restaurant-haf-studio-reykjavik-iceland_dezeen_2364_col_12.jpg" alt="Burger restaurant"
+            style="opacity: 70%">
+            <h1 class="img-text">Welcome to Burger Kitchen</h1>
+        </div>
+    </section>
+    <main>
+    <section class="burgers">
+        <div class="center">
+            <div style="display: inline-block">
+                <h4>Cheeseburger</h4>
+                <img src="https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-McDouble-1:product-header-desktop?wid=829&hei=455&dpr=off"
+                     alt="Cheeseburger" style="width: 200px;height: 130px">
+                <ul style="text-align: left">
+                    <li>600 kcal</li>
+                    <li>Cheezy</li>
+                    <li class="lactose">Contains lactose</li>
+                    <li class="gluten">Contains gluten</li>
+                </ul>
+            </div>
+            <div style="display: inline-block">
+                <h4 class="center">Bacon-burger</h4>
+                <img src="https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-qpc-bacon:product-header-desktop?wid=829&hei=455&dpr=off"
+                     alt="Cheeseburger" style="width: 200px;height: 130px">
+                <ul style="text-align: left">
+                    <li>750 kcal</li>
+                    <li>For the enthusiast</li>
+                    <li class="lactose">Contains lactose</li>
+                    <li class="gluten">Contains gluten</li>
+                </ul>
+            </div>
+            <div style="display: inline-block">
+                <h4 class="center">Plain Burger</h4>
+                <img src="https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Hamburger:product-header-desktop?wid=829&hei=455&dpr=off"
+                     alt="Cheeseburger" style="width: 200px;height: 130px">
+                <ul style="text-align: left">
+                    <li>500 kcal</li>
+                    <li>The classic</li>
+                    <li class="gluten">Contains gluten</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <h2 class="center">Delivery information</h2>
+    <hr>
+    <section class="delivery" style="margin-left: 10%;margin-right: 10%">
+        <div class="delivery">
+            <form style="text-align: left">
+                <p>
+                    <label>Full name</label><br>
+                    <label for="firstname"></label><input type="text" id="firstname" name="fn" required="required" placeholder="First and Last name">
+                </p>
+                <p>
+                    <label>Address</label><br>
+                    <label for="street"></label><input type="text" id="street" name="ad" required="required"
+                                                       placeholder="Street name">
+                    <label for="city"></label><input type="text" id="city" name="ci" required="required"
+                                                     placeholder="City">
+                </p>
+                <p>
+                    <label for="house number"></label><input type="number" id="house number" name="hn" required="required" placeholder="Nr.">
+                </p>
+
+                <p>
+                    <label>Email & Telephone Nr.</label><br>
+                    <label for="email"></label><input type="email" id="email" name="em" required="required" placeholder="Email">
+                    <label for="number"></label><input type="number" id="number" name="nr" required="required" placeholder="Tel. Nr.">
+                </p>
+            </form>
+        </div>
+
+        <p class="delivery" style="text-align: left">
+            <label for="payment">Payment method</label><br>
+            <select id="payment" name="pay">
+                <option>Swish</option>
+                <option>Klarna payment plan</option>
+                <option>KRITA</option>
+            </select>
+        </p>
+    <br>
+        <p class="delivery" style="text-align: left">
+            <label>Choose gender</label><br>
+            <input type="radio" name="gender" id="Male" value="Male">
+            <label for="Male">Male</label>
+            <input type="radio" name="gender" id="Female" value="Male">
+            <label for="Female">Female</label>
+            <input type="radio" name="gender" id="Other" value="Male">
+            <label for="Other">Other</label>
+            <input type="radio" name="gender" id="Do not wish to provide" value="Male">
+            <label for="Do not wish to provide">Do not wish to provide</label>
+        </p>
+        <br>
+
+        <button type="submit" class="button" style="margin: 20px">ORDER</button>
+
+    </section>
+
+    <hr>
+    <footer>
+        &copy; Fogen Burger INC
+    </footer>
+</main>
+</body>
+</html>

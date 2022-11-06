@@ -1,1 +1,70 @@
-/*empty*/
+@import 'https://fonts.googleapis.com/css?family=Pacifico|Dosis';
+
+body{
+    width: 100%;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+section{
+
+}
+
+.gluten{
+    color: indianred;
+}
+
+.lactose{
+    color: cadetblue;
+}
+
+.image{
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+.img-text{
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 300%;
+    text-shadow: 0 0 8px black;
+}
+
+.burgers{
+    background-color: black;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.delivery{
+    margin: 0 25%;
+}
+
+button {
+
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    border: 2px solid #000;
+    border-radius: 3px;
+    color: #fff;
+    background: #000;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    padding: 12px 20px;
+    text-align: center;
+    transition-duration: .15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+button:hover{
+    color: #000;
+    background: rgb(255, 218, 87);
+}
