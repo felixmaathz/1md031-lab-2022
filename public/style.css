@@ -1,10 +1,43 @@
 @import 'https://fonts.googleapis.com/css?family=Pacifico|Dosis';
 
 body{
-    width: 100%;
     font-family: Helvetica;
+
+
+}
+
+
+/*Grid Layout*/
+
+.wrapper{
+    display:grid;
+    grid-gap: 10px;
+    grid-template-columns: 300px 300px 300px;
+    margin: auto;
+}
+
+.box{
+    background-color: #444;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    height: 300px;
     text-align: center;
 }
+.a{
+    grid-column: 1;
+}
+.b{
+    grid-column: 2;
+}
+.c{
+    grid-column: 3;
+}
+
+
+
+
+
 
 section{
 
@@ -43,7 +76,7 @@ section{
 
 
 .delivery{
-    margin: 0 25%;
+
 }
 
 button {
