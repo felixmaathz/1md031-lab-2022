@@ -6,7 +6,7 @@
         </div>
         <button v-on:click="clearQueue">Clear Queue</button>
       </div>
-      <div id="dots" v-bind:style="{ background: 'url(' + require('../../public/img/polacks.jpg')+ ')' }">
+      <div id="dots" v-bind:style="{ background: 'url(' + require('@/assets/polacks.jpg')+ ')' }">
           <div v-for="(order, key) in orders" v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}" v-bind:key="'dots' + key">
             {{ key }}
           </div>
@@ -16,7 +16,7 @@
   <script>
   import io from 'socket.io-client'
   const socket = io();
-  
+
   export default {
     name: 'DispatcherView',
     data: function () {

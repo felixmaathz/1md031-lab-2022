@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Cheeseburger",
+    "imgURL": "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-McDouble-1:product-header-desktop?wid=829&hei=455&dpr=off",
+    "kcal": "600",
+    "gluten": true,
+    "lactose": true
+  },
+  {
+    "name": "Bacon burger",
+    "imgURL": "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-qpc-bacon:product-header-desktop?wid=829&hei=455&dpr=off",
+    "kcal": "700",
+    "gluten": true,
+    "lactose": true
+  },
+  {
+    "name": "Plain burger",
+    "imgURL": "https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Hamburger:product-header-desktop?wid=829&hei=455&dpr=off",
+    "kcal": "500",
+    "gluten": true,
+    "lactose": false
+  }
+]

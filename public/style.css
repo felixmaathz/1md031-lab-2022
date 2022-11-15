@@ -1,15 +1,13 @@
 
 body{
     font-family: Helvetica;
-
-
 }
 
 
 /*Grid Layout*/
 
 .wrapper{
-    display:grid;
+    display:inline-grid;
     grid-gap: 10px;
     grid-template-columns: 300px 300px 300px;
     margin: auto;
@@ -23,16 +21,6 @@ body{
     height: 300px;
     text-align: center;
 }
-.a{
-    grid-column: 1;
-}
-.b{
-    grid-column: 2;
-}
-.c{
-    grid-column: 3;
-}
-
 
 
 
