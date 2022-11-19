@@ -3,9 +3,9 @@
 <template >
 
   <div class="box">
-    <h4>{{burger.name}}</h4>
+    <h4 class="burgerName">{{burger.name}}</h4>
 
-    <img v-bind:src="burger.imgURL" style="width: 200px;height: 130px"><br>
+    <img v-bind:src="burger.imgURL" class="burgerImage" ><br>
 
     <br>
     <ul>
@@ -14,14 +14,12 @@
       <li style="text-align: left" v-if="burger.gluten===true" class="gluten">Contains gluten</li>
     </ul>
     <div class="addRemoveButton">
-      <button class="burgerButton" v-on:click="selectThisBurger()">
-        Add to cart
+      <button class="burgerButton" v-on:click="selectThisBurger(0)">
+        -
       </button>
-
-<!--      <button class="burgerButton" v-if="amountOrdered>0" v-on:click="removeThisBurger()">-->
-<!--        Remove-->
-<!--      </button>-->
-<!--      <p>{{amountOrdered}}</p>-->
+      <button class="burgerButton" v-on:click="selectThisBurger(1)">
+        +
+      </button>
     </div>
   </div>
 </template>
@@ -40,21 +38,20 @@ export default {
 
   },
   methods: {
-    // addBurger: function () {
-    //   console.log("ordered "+ this.burger.name)
-    //   this.amountOrdered += 1;
-    //   console.log(this.amountOrdered);
-    //   this.$emit("orderedBurgers", {
-    //         name: this.burger.name,
-    //         amount: this.amountOrdered
-    //       }
-    //   );
-    // },
-    selectThisBurger: function () {
-      console.log("ordered " + this.burger.name)
-      this.amountOrdered +=1;
-      this.$emit("orderedBurgers", {name: this.burger.name,amount: this.amountOrdered});
+    selectThisBurger: function (int) {
+      if(int===1){
+        console.log("ordered " + this.burger.name)
+        this.amountOrdered +=1;
+        console.log(this.amountOrdered)
+        this.$emit("orderedBurgers", {name: this.burger.name,amount: this.amountOrdered});
+      }else if(this.amountOrdered>0){
+        console.log("removed " + this.burger.name)
+        this.amountOrdered -=1;
+        console.log(this.amountOrdered)
+        this.$emit("orderedBurgers", {name: this.burger.name,amount: this.amountOrdered})
+      }
     },
+
 
   }
 }
@@ -66,18 +63,26 @@ export default {
 
 <style scoped>
 .box{
-  background-color: #41278F;
+  background-color: #374785;
   color: #ffffff;
   margin: 10px;
   padding: 20px;
   height: 400px;
   text-align: center;
-  border-radius: 25px;
-  text-shadow: 0 0 15px black
+  border-radius: 50px;
+  text-shadow: 0 0 15px black;
+}
+
+.burgerImage{
+  width: 80%;
+}
+
+.burgerName{
+  font-size: 120%;
+  text-decoration-line: underline;
 }
 
 .burgerButton{
-
   outline: 0;
   cursor: pointer;
   border: 2px solid #000;
@@ -96,12 +101,13 @@ export default {
   display: inline-block;
   width: 80px;
 
+
 }
 
 
 button:hover{
-  color: white;
-  background: #41278F;
+  color: black;
+  background: #f76c6c;
 }
 .gluten{
   color: #FFB5C2;
