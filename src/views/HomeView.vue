@@ -179,6 +179,9 @@ export default {
       for(let i=0;i<this.customerInfo.selectedBurger.length; i++){
         if(this.customerInfo.selectedBurger[i].name===event.name){
           this.customerInfo.selectedBurger[i].amount=event.amount;
+          if(this.customerInfo.selectedBurger[i].amount===0){
+            this.customerInfo.selectedBurger.splice(i,1);
+          }
           return;
         }
       }
