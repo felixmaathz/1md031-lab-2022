@@ -1,8 +1,8 @@
 <template>
   <div>
     <section>
-      <div class="image" >
-        <img src="@/assets/Vector-Pattern-PNG-Image.png"  alt="Burger restaurant"
+      <div class="image">
+        <img src="@/assets/Vector-Pattern-PNG-Image.png" alt="Burger restaurant"
              style="width: 100%;filter: blur(2px)">
         <h1 class="img-text">Welcome to Burger Kitchen</h1>
       </div>
@@ -29,7 +29,7 @@
             <br>
             <br>
             <label>Choose delivery location by clicking the map</label>
-            <div class="mapDiv" >
+            <div class="mapDiv">
               <div
                   class="map" id="dots" v-on:click="setLocation">
                 <div v-bind:style="{left: customerInfo.location.x + 'px',
@@ -39,8 +39,6 @@
               </div>
             </div>
 
-            <!--          <input type="text" id="street" required="required" placeholder="Street name"/>-->
-            <!--          <input type="text" id="city" required="required" placeholder="City"/>-->
             <br>
             <label>Email & Telephone Nr.</label><br>
             <input class="formStyle" v-model="customerInfo.customerInput.email" type="email"
@@ -79,9 +77,11 @@
             <div>
 
               <button type="submit" class="orderButton" style="margin: 20px"
-                      v-on:click="submitted();printCustomerInfo()" ><img src="@/assets/Shopping.png" style="left: 0"
-              > ORDER</button>
+                      v-on:click="validateForm();printCustomerInfo()"><img src="@/assets/Shopping.png" style="left: 0"
+              > ORDER
+              </button>
               <span v-if="this.isHidden===true">Order submitted!</span>
+              <span v-if="this.isHidden===false">Form not filled correctly</span>
 
             </div>
           </form>
@@ -93,7 +93,7 @@
             <div v-for="burgerOrder in customerInfo.selectedBurger"
                  v-bind:key="burgerOrder.name">
               <li v-if="burgerOrder.amount>0">
-                {{burgerOrder.amount+"x "+burgerOrder.name}}
+                {{ burgerOrder.amount + "x " + burgerOrder.name }}
               </li>
             </div>
           </div>
@@ -101,9 +101,12 @@
         </div>
 
 
-
       </div>
     </main>
+    <footer style="text-align: left; ">
+      <hr>
+      &copy; <em> Burger Kitchen ltd</em>
+    </footer>
   </div>
 
 </template>
@@ -135,12 +138,15 @@ export default {
   },
   data: function () {
     return {
-      isHidden: false,
+      isHidden: undefined,
       burgers: burgerArray,
       customerInfo:
-          {selectedBurger: [],
-            location: {x:0,
-              y:0},
+          {
+            selectedBurger: [],
+            location: {
+              x: undefined,
+              y: undefined
+            },
             customerInput: {
               fullName: "",
               email: "",
@@ -153,76 +159,106 @@ export default {
   },
   methods: {
     getOrderNumber: function () {
-      return Math.floor(Math.random() * 100000);
+
+      return Math.floor(Math.random() * 100);
     },
     printCustomerInfo: function () {
       console.log(this.customerInfo)
-      socket.emit("addOrder", {orderId: this.getOrderNumber(),
-            details: {x: this.customerInfo.location.x,
-                      y: this.customerInfo.location.y},
+      socket.emit("addOrder", {
+            orderId: this.getOrderNumber(),
+            details: {
+              x: this.customerInfo.location.x,
+              y: this.customerInfo.location.y
+            },
             orderItems: this.customerInfo.selectedBurger,
             customerDetails: this.customerInfo.customerInput
           }
       );
 
     },
-    submitted: function(){
 
-        this.isHidden=true
-        setTimeout(function(){
-          window.location.reload();
-        }, 2000);
-        return this.isHidden;
+
+    validateForm: function () {
+      //Checks if any form field, location or cart is empty
+      if (this.customerInfo.customerInput.fullName &&
+          this.customerInfo.customerInput.email &&
+          this.customerInfo.customerInput.gender &&
+          this.customerInfo.customerInput.paymentMethod &&
+          this.customerInfo.customerInput.telephoneNr !== "" &&
+          this.customerInfo.selectedBurger.length !== 0 &&
+          this.customerInfo.location.x !== undefined) {
+
+
+        this.reloadPage()   //Reloads page after ordering
+
+        return this.isHidden = true;
+      }
+      return this.isHidden = false;
+    },
+    reloadPage: function () {
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     },
 
     setSelectedBurger: function (event) {
-      for(let i=0;i<this.customerInfo.selectedBurger.length; i++){
-        if(this.customerInfo.selectedBurger[i].name===event.name){
-          this.customerInfo.selectedBurger[i].amount=event.amount;
-          if(this.customerInfo.selectedBurger[i].amount===0){
-            this.customerInfo.selectedBurger.splice(i,1);
+      //Iterate through the customer order and update amount of ordered burgers
+      //If a certain burger isn't in the array, it gets added
+      for (let i = 0; i < this.customerInfo.selectedBurger.length; i++) {
+        if (this.customerInfo.selectedBurger[i].name === event.name) {
+          this.customerInfo.selectedBurger[i].amount = event.amount;
+
+          if (this.customerInfo.selectedBurger[i].amount === 0) {
+            this.customerInfo.selectedBurger.splice(i, 1);
           }
           return;
         }
       }
       this.customerInfo.selectedBurger.push(event)
     },
-    setLocation: function(event){
-      let offset = {x: event.currentTarget.getBoundingClientRect().left,
-        y: event.currentTarget.getBoundingClientRect().top};
+    setLocation: function (event) {
+      let offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+      };
 
-      this.customerInfo.location.x=event.clientX - 10 - offset.x;
-      this.customerInfo.location.y=event.clientY - 10 - offset.y;
+      this.customerInfo.location.x = event.clientX - 10 - offset.x;
+      this.customerInfo.location.y = event.clientY - 10 - offset.y;
     }
   }
 }
 </script>
 
 <style>
-.mapDiv{
+.mapDiv {
   width: 50vh;
   height: 50vh;
   overflow: scroll;
+  margin-top: 10px;
 }
 
 .map {
   width: 1920px;
   height: 1078px;
   background-image: url("@/assets/polacks.jpg");
+
 }
 
 
-body{
-  width: 100%; height: 100%; margin: 0 auto; text-align: center;
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
   font-family: "Trebuchet MS", sans-serif;
   /*font-family: Helvetica,serif;*/
   background-color: #a8d0e6;
 }
 
-.wrapper{
+.wrapper {
   width: 100%;
   background-color: #f76c6c;
-  display:inline-grid;
+  display: inline-grid;
   grid-template-columns: 25% 25% 25%;
   justify-content: center;
   border-bottom: 5px solid black;
@@ -230,7 +266,7 @@ body{
 
 }
 
-.deliveryCart{
+.deliveryCart {
   background-color: #24305e;
   color: white;
   border-style: solid;
@@ -249,21 +285,23 @@ body{
   text-shadow: 0 0 3px black;
 }
 
-.formStyle{
+.formStyle {
   padding: 7px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.deliveryCart{
+.deliveryCart {
 }
-.delivery{
+
+.delivery {
   text-align: left;
   width: 600px;
   display: inline-block;
 
 }
-.cart{
+
+.cart {
   text-align: left;
   background-color: #f76c6c;
   margin-top: 20%;
@@ -279,21 +317,20 @@ body{
   font-size: 120%;
 }
 
-.cart li{
+.cart li {
   padding-left: 5%;
 }
 
-.cart h2{
+.cart h2 {
   text-align: center;
 }
 
 
-.scrollCart{
-
+.scrollCart {
   overflow: auto;
 }
 
-.image{
+.image {
   height: 200px;
   overflow: hidden;
   color: white;
@@ -301,7 +338,7 @@ body{
 
 }
 
-.img-text{
+.img-text {
   background-color: #24305e;
   position: absolute;
   top: 100px;
@@ -314,13 +351,15 @@ body{
   text-transform: uppercase;
 }
 
-.img-text{
+.img-text {
   font-family: "Trebuchet MS", sans-serif;
   letter-spacing: -2px;
   border-bottom: 2px solid black;
   text-transform: uppercase;
 }
 
+
+/*Order button css from stack overflow*/
 .orderButton {
   display: inline-block;
   outline: 0;
@@ -338,11 +377,12 @@ body{
   transition-property: all;
 }
 
-.orderButton img{
+.orderButton img {
   filter: invert(1);
   width: 15px;
 }
-button:hover{
+
+button:hover {
   color: black;
   background: #f76c6c;
 
@@ -353,7 +393,7 @@ button:hover{
   margin: 0;
   padding: 0;
   background-repeat: no-repeat;
-  width:1920px;
+  width: 1920px;
   height: 1078px;
   cursor: crosshair;
 }
@@ -363,8 +403,8 @@ button:hover{
   background: black;
   color: white;
   border-radius: 10px;
-  width:20px;
-  height:20px;
+  width: 20px;
+  height: 20px;
   text-align: center;
 }
 

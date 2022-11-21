@@ -1,6 +1,7 @@
 <template>
     <div id="orders">
       <div id="orderList">
+        <hr>
         <div v-for="order in orders" v-bind:key="order">
           {{"Order ID: "+order.orderId}}
 
@@ -11,10 +12,11 @@
 
           <span v-for="customer in order.customerDetails"
                 style="font-style: italic" v-bind:key="customer">
-            {{customer}},
+            {{customer}}
           </span>
 
         </div>
+        <hr>
         <button v-on:click="clearQueue">Clear Queue</button>
       </div>
       <div id="dots" v-bind:style="{ background: 'url(' + require('@/assets/polacks.jpg')+ ')' }">
